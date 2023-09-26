@@ -3,7 +3,9 @@ const { Category, Product } = require('../../models');
 
 // The `/api/categories` endpoint
 router.get('/', (req,res) => {
-  Category.findAll()
+  Category.findAll({
+    include: {model: Product},
+  })
   .then((categoryData) => {
     res.json(categoryData);
   });
@@ -12,7 +14,9 @@ router.get('/', (req,res) => {
 // find one category by its `id` value
 // be sure to include its associated Products
 router.get('/:id', (req, res) => {
-  Category.findByPk(req.params.id)
+  Category.findByPk(req.params.id, {
+    include: {model: Product},
+  })
   .then((categoryData) => {
     res.json(categoryData);
   });
@@ -57,7 +61,7 @@ router.delete('/:id', (req, res) => {
     },
   })
   .then((deleteCategory) => {
-    res.json(this.deleteCategory);
+    res.json(deleteCategory);
   })
   .catch((err) => {
     res.json(err);
