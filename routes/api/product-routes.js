@@ -72,7 +72,8 @@ router.put('/:id', (req, res) => {
         
         ProductTag.findAll({
           where: { product_id: req.params.id }
-        }).then((productTags) => {
+        })
+        .then((productTags) => {
           // create filtered list of new tag_ids
           const productTagIds = productTags.map(({ tag_id }) => tag_id);
           const newProductTags = req.body.tagIds
